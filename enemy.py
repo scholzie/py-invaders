@@ -1,23 +1,25 @@
 # enemy.py
 from game_object import GameObject
-from constants import PLAYER_DX, PLAYER_DY, ENEMY_1_IMAGE, ENEMY_2_IMAGE
+from constants import ENEMY_SIZE, ENEMY_1_IMAGE, ENEMY_2_IMAGE
+import pygame
 
 
 class Enemy(GameObject):
-    def __init__(self, image_path, x, y, screen, dx=PLAYER_DX, dy=PLAYER_DY):
+    def __init__(self, image_path, x, y, screen):
         super().__init__(image_path, x, y, screen)
+        self.image = pygame.transform.scale(self.image, ENEMY_SIZE)
+
 
     def move(self):
-        self.x += self.dx
-        self.y += self.dy
+        pass
 
     def update(self):
         self.move()
 
 
 class EnemyType1(Enemy):
-    def __init__(self, x, y, screen, dx=PLAYER_DX, dy=PLAYER_DY):
-        super().__init__(ENEMY_1_IMAGE, x, y, screen, dx, dy)
+    def __init__(self, x, y, screen):
+        super().__init__(ENEMY_1_IMAGE, x, y, screen)
 
     def move(self):
         super().move()
@@ -27,8 +29,8 @@ class EnemyType1(Enemy):
 
 
 class EnemyType2(Enemy):
-    def __init__(self, x, y, screen, dx=PLAYER_DX, dy=PLAYER_DY):
-        super().__init__(ENEMY_2_IMAGE, x, y, screen, dx, dy)
+    def __init__(self, x, y, screen):
+        super().__init__(ENEMY_2_IMAGE, x, y, screen)
 
     def move(self):
         super().move()

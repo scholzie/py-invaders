@@ -1,6 +1,6 @@
 # game_object.py
 import pygame
-from constants import DEFAULT_PLAYER_SIZE
+from constants import PLAYER_SIZE
 
 
 class GameObject:

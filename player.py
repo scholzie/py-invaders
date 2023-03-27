@@ -1,13 +1,13 @@
 # player.py
 from game_object import GameObject
-from constants import PLAYER_DX, PLAYER_DY, DEFAULT_PLAYER_SIZE
+from constants import PLAYER_DX, PLAYER_DY, PLAYER_SIZE
 import pygame
 
 
 class Player(GameObject):
     def __init__(self, image_path, x, y, screen):
         super().__init__(image_path, x, y, screen)
-        self.image = pygame.transform.scale(self.image, DEFAULT_PLAYER_SIZE)
+        self.image = pygame.transform.scale(self.image, PLAYER_SIZE)
         self.dx = PLAYER_DX
         self.dy = PLAYER_DY
 

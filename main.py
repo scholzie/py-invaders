@@ -1,8 +1,9 @@
 # main.py
+import random
 import sys
 from constants import *
 from player import Player
-from enemy import Enemy
+from enemy import EnemyType1, EnemyType2
 
 pygame.init()
 pygame.font.init()
@@ -33,12 +34,22 @@ def main():
     player = Player(player_image, 370, 480, screen)
 
     # enemy setup
+    # Initially, we will have 11 enemies in a row, and 5 rows.
+    # Each row will randomly choose either Enemy 1 or Enemy 2.
+    # Both Enemy types will have the same stats for now.
+    enemies = []
+    for row in range(ENEMY_ROWS):
+        enemy_type = random.choice([EnemyType1, EnemyType2])
+        for col in range(ENEMY_COLS):
+            enemy = enemy_type(col * 60 + 100, row * 50 + 50, screen)
+            enemies.append(enemy)
 
     # Game Loop
     running = True
     while running:
-        screen.fill((0, 0, 0))
-        screen.blit(DEFAULT_BACKGROUND, (0, 0))
+        screen.fill((200, 200, 200))
+        # screen.fill((0, 0, 0))
+        # screen.blit(DEFAULT_BACKGROUND, (0, 0))
         for event in pygame.event.get():
             process_event(event, player)
 
