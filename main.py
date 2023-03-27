@@ -2,6 +2,7 @@
 import sys
 from constants import *
 from player import Player
+from enemy import Enemy
 
 pygame.init()
 pygame.font.init()
@@ -31,6 +32,8 @@ def main():
     player_image = os.path.join(SPRITE_DIR, 'player-ship.png')
     player = Player(player_image, 370, 480, screen)
 
+    # enemy setup
+
     # Game Loop
     running = True
     while running:
@@ -52,6 +55,10 @@ def main():
         directions_text = DEFAULT_FONT.render("Use arrow keys to move. Press ESC to quit.", True, (255, 255, 255))
         directions_text_rect = directions_text.get_rect(center=(screen.get_width() / 2, 50))
         screen.blit(directions_text, directions_text_rect)
+
+        for enemy in enemies:
+            enemy.update()
+            enemy.draw()
 
         player.check_boundary()
         player.draw()

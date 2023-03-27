@@ -1,16 +1,20 @@
 # player.py
 from game_object import GameObject
-from constants import DEFAULT_DX, DEFAULT_DY
+from constants import PLAYER_DX, PLAYER_DY, DEFAULT_PLAYER_SIZE
+import pygame
 
 
 class Player(GameObject):
     def __init__(self, image_path, x, y, screen):
         super().__init__(image_path, x, y, screen)
+        self.image = pygame.transform.scale(self.image, DEFAULT_PLAYER_SIZE)
+        self.dx = PLAYER_DX
+        self.dy = PLAYER_DY
 
-    def move_x(self, direction: int, dx: int = DEFAULT_DX):
+    def move_x(self, direction: int, dx: int = PLAYER_DX):
         self.x += direction * dx
 
-    def move_y(self, direction: int, dy: int = DEFAULT_DY):
+    def move_y(self, direction: int, dy: int = PLAYER_DY):
         self.y += direction * dy
 
     def check_boundary(self):
