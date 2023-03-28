@@ -13,6 +13,7 @@ ENEMY_2_IMAGE = os.path.join(SPRITE_DIR, 'alien1-arms-up.png')
 ENEMY_SIZE = (40, 40)
 ENEMY_ROWS = 5
 ENEMY_COLS = 11
+PLAYER_IMAGE = os.path.join(SPRITE_DIR, 'player-ship.png')
 PLAYER_SIZE = (96, 96)
 PLAYER_LASER_SIZE = (10, 25)
 PLAYER_LASER_IMAGE = None
