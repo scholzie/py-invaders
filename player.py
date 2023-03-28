@@ -1,7 +1,8 @@
 # player.py
 from game_object import GameObject
-from constants import PLAYER_DX, PLAYER_DY, PLAYER_SIZE
+from constants import PLAYER_DX, PLAYER_DY, PLAYER_LASER_COLOR, PLAYER_LASER_SIZE, PLAYER_SIZE
 import pygame
+from projectile import Laser
 
 
 class Player(GameObject):
@@ -27,3 +28,8 @@ class Player(GameObject):
             self.y = self.screen.get_height() - self.screen.get_height() // 3
         if self.y > self.screen.get_height() - self.image.get_height():
             self.y = self.screen.get_height() - self.image.get_height()
+
+    def fire_laser(self, laser_image):
+        laser_x = self.x + self.image.get_width() // 2 - PLAYER_LASER_SIZE[0] // 2
+        laser_y = self.y - PLAYER_LASER_SIZE[1]
+        return Laser.from_rect(PLAYER_LASER_COLOR, PLAYER_LASER_SIZE[0], PLAYER_LASER_SIZE[1], laser_x, laser_y, self.screen)

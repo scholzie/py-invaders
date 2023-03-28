@@ -4,8 +4,8 @@ This document outlines the features planned for the game. Each feature will be i
 
 ## 1. Implement Basic Enemy Class and Variations
 
-- Create a base `Enemy` class in a separate file (e.g., `enemy.py`).
-- Implement at least two different enemy types by subclassing the `Enemy` class (e.g., `EnemyType1`, `EnemyType2`).
+- [x] Create a base `Enemy` class in a separate file (e.g., `enemy.py`).
+- [x] Implement at least two different enemy types by subclassing the `Enemy` class (e.g., `EnemyType1`, `EnemyType2`).
 - Add movement and behavior logic for each enemy type.
 
 ## 2. Implement Shooting Functionality for the Player

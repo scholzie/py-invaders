@@ -9,7 +9,6 @@ class Enemy(GameObject):
         super().__init__(image_path, x, y, screen)
         self.image = pygame.transform.scale(self.image, ENEMY_SIZE)
 
-
     def move(self):
         pass
 
