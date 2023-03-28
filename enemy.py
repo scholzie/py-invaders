@@ -6,11 +6,23 @@ import pygame
 
 class Enemy(GameObject):
     def __init__(self, image_path, x, y, screen):
-        super().__init__(image_path, x, y, screen)
+        image = pygame.image.load(image_path)
+        super().__init__(image, x, y, screen)
         self.image = pygame.transform.scale(self.image, ENEMY_SIZE)
 
     def move(self):
         pass
+
+    def check_boundary(self):
+        if self.x < 0:
+            self.x = 0
+        if self.x > self.screen.get_width() - self.image.get_width():
+            self.x = self.screen.get_width() - self.image.get_width()
+
+        if self.y < 0:
+            self.y = 0
+        if self.y > self.screen.get_height() - self.image.get_height():
+            self.y = self.screen.get_height() - self.image.get_height()
 
     def update(self):
         self.move()

@@ -1,28 +1,37 @@
 # game.py
 import random
-
-import pygame
-
 from enemy import EnemyType1, EnemyType2
 from player import Player
-from constants import ENEMY_COLS, ENEMY_ROWS, PLAYER_IMAGE
+from constants import *
 
 
 class Game:
 
-    def __init__(self, screen, player_image=PLAYER_IMAGE):
-        self.screen = screen
+    def __init__(self):
+        self.screen = None
+        self.lasers = None
+        self.enemies = None
+        self.player = None
+        self.running = False
+
+        self.init_pygame()
+        self.DEFAULT_FONT = pygame.font.SysFont(None, 32)
+        self.directions_text = self.DEFAULT_FONT.render("Use arrow keys to move. Press ESC to quit.", True,
+                                                        (255, 255, 255))
+        self.init_entities()
+
+    def init_pygame(self):
+        pygame.init()
+        pygame.font.init()
+        self.screen = pygame.display.set_mode((800, 600))
+        pygame.display.set_caption(GAME_TITLE)
+        pygame.display.set_icon(pygame.image.load(GAME_ICON))
+
+    def init_entities(self):
         self.player = Player(PLAYER_IMAGE, self.screen.get_width() // 2,
                              self.screen.get_height() - self.screen.get_height() // 3, self.screen)
         self.enemies = self.create_enemies()
         self.lasers = []
-        self.running = True
-
-    def init_pygame(self):
-        pass
-
-    def init_entities(self):
-        pass
 
     def create_enemies(self):
         enemies = []
@@ -53,37 +62,39 @@ class Game:
         if keys[pygame.K_SPACE]:
             self.lasers.append(self.player.fire_laser())
 
-    def check_collision(self, obj1, obj2):
+    @staticmethod
+    def check_collision(obj1, obj2):
         obj1_rect = obj1.image.get_rect(topleft=(obj1.x, obj1.y))
         obj2_rect = obj2.image.get_rect(topleft=(obj2.x, obj2.y))
         return obj1_rect.colliderect(obj2_rect)
 
     def run(self):
-        running = True
-        while running:
-            screen.fill((200, 200, 200))
-            # screen.fill((0, 0, 0))
-            # screen.blit(DEFAULT_BACKGROUND, (0, 0))
+        self.running = True
+        while self.running:
             for event in pygame.event.get():
                 self.process_event(event)
 
-            directions_text = DEFAULT_FONT.render("Use arrow keys to move. Press ESC to quit.", True, (255, 255, 255))
-            directions_text_rect = directions_text.get_rect(center=(screen.get_width() / 2, 50))
-            screen.blit(directions_text, directions_text_rect)
+            self.handle_key_events()
 
-            for laser in lasers:
+            self.screen.fill((200, 200, 200))
+            # screen.fill((0, 0, 0))
+            # screen.blit(DEFAULT_BACKGROUND, (0, 0))
+
+            directions_text_rect = self.directions_text.get_rect(center=(self.screen.get_width() / 2, 50))
+            self.screen.blit(self.directions_text, directions_text_rect)
+
+            for laser in self.lasers:
                 laser.move_y(-1)
                 laser.draw()
-                for enemy in enemies:
-                    if check_collision(laser, enemy):
-                        enemies.remove(enemy)
-                        lasers.remove(laser)
+                for enemy in self.enemies:
+                    if self.check_collision(laser, enemy):
+                        self.enemies.remove(enemy)
+                        self.lasers.remove(laser)
                         break
 
-            for enemy in enemies:
+            for enemy in self.enemies:
                 enemy.update()
                 enemy.draw()
 
-            player.check_boundary()
-            player.draw()
+            self.player.draw()
             pygame.display.update()
